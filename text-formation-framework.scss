@@ -1,0 +1,440 @@
+// text-formation-framework.scss
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+// Variables
+$tf-colors: (
+  primary: #2c3e50,
+  secondary: #3498db,
+  accent: #e74c3c,
+  light: #ecf0f1,
+  dark: #2c3e50,
+  success: #27ae60,
+  warning: #f39c12,
+  error: #e74c3c
+);
+
+$tf-font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  '2xl': 1.5rem,
+  '3xl': 1.875rem,
+  '4xl': 2.25rem,
+  '5xl': 3rem,
+  '6xl': 3.75rem
+);
+
+$tf-spacing: (
+  xs: 0.25rem,
+  sm: 0.5rem,
+  md: 1rem,
+  lg: 1.5rem,
+  xl: 2rem,
+  '2xl': 3rem
+);
+
+$tf-border-radius: (
+  sm: 0.125rem,
+  md: 0.25rem,
+  lg: 0.5rem,
+  xl: 1rem
+);
+
+$tf-shadows: (
+  sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06),
+  lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05),
+  xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+);
+
+$tf-transitions: (
+  fast: 0.15s ease-in-out,
+  base: 0.3s ease-in-out,
+  slow: 0.5s ease-in-out
+);
+
+$tf-font-families: (
+  sans: ('Inter', sans-serif),
+  serif: ('Playfair Display', serif),
+  display: ('Cinzel', serif),
+  mono: ('Monaco', 'Consolas', monospace)
+);
+
+// Mixins
+@mixin tf-gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin tf-text-shadow($shadow) {
+  text-shadow: $shadow;
+}
+
+@mixin tf-animation($name, $duration: 0.8s, $timing: ease-out) {
+  animation: $name $duration $timing;
+}
+
+@mixin tf-responsive-text($min-size, $max-size) {
+  font-size: clamp(#{$min-size}, #{$max-size}, 5vw);
+}
+
+@mixin tf-hover-lift {
+  transition: transform map-get($tf-transitions, base), box-shadow map-get($tf-transitions, base);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: map-get($tf-shadows, xl);
+  }
+}
+
+// Base Styles
+.tf-text {
+  font-family: map-get($tf-font-families, sans);
+  line-height: 1.6;
+  color: map-get($tf-colors, primary);
+  margin: 0;
+  padding: 0;
+}
+
+// Text Size Classes
+@each $size, $value in $tf-font-sizes {
+  .tf-text-#{$size} {
+    font-size: $value;
+  }
+}
+
+// Font Weight Classes
+$tf-font-weights: (
+  thin: 100,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900
+);
+
+@each $weight, $value in $tf-font-weights {
+  .tf-font-#{$weight} {
+    font-weight: $value;
+  }
+}
+
+// Font Family Classes
+@each $family, $value in $tf-font-families {
+  .tf-font-#{$family} {
+    font-family: $value;
+  }
+}
+
+// Text Alignment
+.tf-text {
+  &-left { text-align: left; }
+  &-center { text-align: center; }
+  &-right { text-align: right; }
+  &-justify { text-align: justify; }
+}
+
+// Text Transformation
+.tf {
+  &-uppercase { text-transform: uppercase; }
+  &-lowercase { text-transform: lowercase; }
+  &-capitalize { text-transform: capitalize; }
+  &-normal-case { text-transform: none; }
+}
+
+// Text Decoration
+.tf {
+  &-underline { text-decoration: underline; }
+  &-line-through { text-decoration: line-through; }
+  &-no-underline { text-decoration: none; }
+}
+
+// Letter Spacing
+$tf-tracking: (
+  tighter: -0.05em,
+  tight: -0.025em,
+  normal: 0,
+  wide: 0.025em,
+  wider: 0.05em,
+  widest: 0.1em
+);
+
+@each $tracking, $value in $tf-tracking {
+  .tf-tracking-#{$tracking} {
+    letter-spacing: $value;
+  }
+}
+
+// Line Height
+$tf-leading: (
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+  loose: 2
+);
+
+@each $leading, $value in $tf-leading {
+  .tf-leading-#{$leading} {
+    line-height: $value;
+  }
+}
+
+// Text Colors
+@each $color, $value in $tf-colors {
+  .tf-text-#{$color} {
+    color: $value;
+  }
+}
+
+// Background Colors
+@each $color, $value in $tf-colors {
+  .tf-bg-#{$color} {
+    background-color: $value;
+  }
+}
+
+// Gradient Text
+.tf-gradient {
+  &-primary {
+    @include tf-gradient-text(linear-gradient(135deg, map-get($tf-colors, primary), map-get($tf-colors, secondary)));
+  }
+  
+  &-accent {
+    @include tf-gradient-text(linear-gradient(135deg, map-get($tf-colors, accent), map-get($tf-colors, warning)));
+  }
+  
+  &-rainbow {
+    @include tf-gradient-text(linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff));
+  }
+}
+
+// Text Shadows
+.tf-shadow {
+  &-sm { @include tf-text-shadow(0 1px 2px rgba(0, 0, 0, 0.1)); }
+  &-md { @include tf-text-shadow(0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)); }
+  &-lg { @include tf-text-shadow(0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)); }
+  &-xl { @include tf-text-shadow(0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04)); }
+}
+
+// Special Text Effects
+.tf-3d-text {
+  color: map-get($tf-colors, primary);
+  @include tf-text-shadow(
+    0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25),
+    0 10px 10px rgba(0,0,0,.2),
+    0 20px 20px rgba(0,0,0,.15)
+  );
+}
+
+.tf-neon-text {
+  color: #fff;
+  @include tf-text-shadow(
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px map-get($tf-colors, secondary),
+    0 0 20px map-get($tf-colors, secondary),
+    0 0 25px map-get($tf-colors, secondary),
+    0 0 30px map-get($tf-colors, secondary),
+    0 0 35px map-get($tf-colors, secondary)
+  );
+  @include tf-animation(tf-neon-pulse, 1.5s, ease-in-out infinite alternate);
+}
+
+@keyframes tf-neon-pulse {
+  from {
+    @include tf-text-shadow(
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px map-get($tf-colors, secondary),
+      0 0 20px map-get($tf-colors, secondary),
+      0 0 25px map-get($tf-colors, secondary),
+      0 0 30px map-get($tf-colors, secondary),
+      0 0 35px map-get($tf-colors, secondary)
+    );
+  }
+  to {
+    @include tf-text-shadow(
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 30px map-get($tf-colors, secondary),
+      0 0 40px map-get($tf-colors, secondary),
+      0 0 50px map-get($tf-colors, secondary),
+      0 0 60px map-get($tf-colors, secondary),
+      0 0 70px map-get($tf-colors, secondary)
+    );
+  }
+}
+
+.tf-outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px map-get($tf-colors, primary);
+}
+
+.tf-glow-text {
+  color: map-get($tf-colors, light);
+  @include tf-text-shadow(
+    0 0 10px map-get($tf-colors, secondary),
+    0 0 20px map-get($tf-colors, secondary),
+    0 0 30px map-get($tf-colors, secondary)
+  );
+}
+
+// Text Animations
+.tf-fade-in {
+  @include tf-animation(tf-fadeIn);
+}
+
+@keyframes tf-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tf-slide-in-left {
+  @include tf-animation(tf-slideInLeft);
+}
+
+@keyframes tf-slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.tf-slide-in-right {
+  @include tf-animation(tf-slideInRight);
+}
+
+@keyframes tf-slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.tf-bounce-in {
+  @include tf-animation(tf-bounceIn);
+}
+
+@keyframes tf-bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.tf-typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid map-get($tf-colors, primary);
+  white-space: nowrap;
+  animation: tf-typing 3.5s steps(40, end), tf-blink-caret 0.75s step-end infinite;
+}
+
+@keyframes tf-typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes tf-blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: map-get($tf-colors, primary); }
+}
+
+// Text Layout Components
+.tf-text-container {
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: map-get($tf-spacing, lg);
+}
+
+.tf-text-card {
+  background: white;
+  border-radius: map-get($tf-border-radius, lg);
+  box-shadow: map-get($tf-shadows, md);
+  padding: map-get($tf-spacing, xl);
+  margin-bottom: map-get($tf-spacing, lg);
+  @include tf-hover-lift;
+}
+
+.tf-text-highlight {
+  background: linear-gradient(120deg, rgba(255, 255, 0, 0.3) 0%, rgba(255, 255, 0, 0.3) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.4em;
+  background-position: 0 88%;
+}
+
+.tf-drop-cap::first-letter {
+  float: left;
+  font-size: 4em;
+  line-height: 0.8;
+  margin: 0.1em 0.1em 0 0;
+  color: map-get($tf-colors, primary);
+  font-family: map-get($tf-font-families, serif);
+}
+
+// Responsive Text
+@media (max-width: 768px) {
+  .tf-text-responsive {
+    @include tf-responsive-text(1rem, 2rem);
+  }
+  
+  .tf-text-6xl { font-size: map-get($tf-font-sizes, '4xl'); }
+  .tf-text-5xl { font-size: map-get($tf-font-sizes, '3xl'); }
+  .tf-text-4xl { font-size: map-get($tf-font-sizes, '2xl'); }
+}
+
+// Print Styles
+@media print {
+  .tf-text {
+    color: black !important;
+    background: white !important;
+  }
+  
+  .tf-text-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .tf-gradient-primary,
+  .tf-gradient-accent,
+  .tf-gradient-rainbow {
+    background: none;
+    -webkit-text-fill-color: black;
+    color: black;
+  }
+}
