@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Formation Framework Demo</title>
+  <link rel="stylesheet" href="text-formation-framework.css">
+</head>
+<body>
+  <div class="tf-text-container">
+    <h1 class="tf-text-4xl tf-font-serif tf-gradient-primary tf-fade-in">
+      Beautiful Typography
+    </h1>
+    
+    <div class="tf-text-card">
+      <p class="tf-text-lg tf-drop-cap">
+        This framework provides advanced text formation capabilities with beautiful typography, animations, and effects.
+      </p>
+      
+      <p class="tf-text-base tf-text-highlight">
+        Highlight important text with ease using the text highlight class.
+      </p>
+    </div>
+    
+    <h2 class="tf-text-2xl tf-neon-text" data-tf-animate="tf-fadeIn">
+      Neon Text Effect
+    </h2>
+    
+    <p class="tf-text-base tf-typewriter">
+      This text will appear as if it's being typed.
+    </p>
+    
+    <div class="tf-3d-text tf-text-3xl">
+      3D Text Effect
+    </div>
+  </div>
+
+  <script src="text-formation-framework.js"></script>
+  <script>
+    // Initialize the framework
+    const tff = new TextFormationFramework();
+    
+    // Apply custom effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const element = document.querySelector('.tf-3d-text');
+      tff.applyTextEffect(element, '3d', { depth: 8 });
+    });
+  </script>
+</body>
+</html>
